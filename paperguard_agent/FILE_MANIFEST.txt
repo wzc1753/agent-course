@@ -1,0 +1,130 @@
+PaperGuard Agent - 文件清单
+生成时间: 2026-06-12
+================================
+
+项目根目录文件:
+├── app.py                          5.7K    Streamlit Web应用主入口
+├── test_paperguard.py              2.5K    快速测试脚本
+├── requirements.txt                184B    Python依赖列表
+├── .env.example                    390B    环境变量配置模板
+├── README.md                       4.2K    项目主文档（中文）
+├── QUICKSTART.md                   6.8K    快速启动指南
+├── PROJECT_SUMMARY.md              11K     项目完成总结
+└── FILE_MANIFEST.txt               本文件  文件清单
+
+paperguard/ 核心包 (15个文件):
+├── __init__.py                     441B    包初始化和导出
+├── schemas.py                      2.3K    Pydantic数据模型定义
+├── config.py                       4.0K    配置管理和环境变量加载
+├── parser.py                       9.8K    论文文本解析
+├── citation_extractor.py           7.2K    提取[n]和\cite{}引用
+├── reference_parser.py             17K     解析参考文献和BibTeX
+├── metadata_clients.py             18K     外部API客户端集成
+├── matcher.py                      5.1K    元数据相似度匹配
+├── claim_extractor.py              12K     高风险论断提取
+├── claim_verifier.py               6.3K    LLM论断验证
+├── report.py                       9.6K    审查报告生成
+├── cache.py                        4.0K    API结果缓存
+├── pipeline.py                     3.5K    主流程编排
+├── utils.py                        1.1K    工具函数
+└── agent.py                        4.6K    (备用智能体实现)
+
+data/ 数据目录:
+├── demo_bad_paper.md               13K     Demo论文（含8种错误）
+└── README.md                       599B    数据目录说明
+
+outputs/ 输出目录:
+└── (运行时生成)
+    ├── metadata_cache.json         API查询缓存
+    └── audit_reports/              审查报告输出
+
+tests/ 测试目录:
+├── __init__.py                     测试包初始化
+├── test_config.py                  配置测试
+├── test_schemas.py                 Schema测试
+└── test_utils.py                   工具函数测试
+
+================================
+文件统计:
+
+核心代码文件:       15个 (paperguard/)
+应用程序:           2个  (app.py, test_paperguard.py)
+文档文件:           5个  (README, QUICKSTART, SUMMARY等)
+配置文件:           2个  (.env.example, requirements.txt)
+Demo数据:           1个  (demo_bad_paper.md)
+
+总代码量:           ~110KB
+总文档量:           ~25KB
+
+================================
+功能覆盖:
+
+✅ 论文解析 (.md/.txt/.tex)
+✅ 引用提取 ([n], \cite{})
+✅ 参考文献解析 (文本和BibTeX)
+✅ 引用完整性检查
+✅ 外部数据库验证 (4个API)
+✅ 元数据匹配评分
+✅ 论断-引用验证
+✅ 过强论断检测
+✅ 审查报告生成
+✅ Web UI展示
+✅ 验证轨迹可视化
+
+================================
+支持的审查模式:
+
+1. Fast模式
+   - 引用完整性检查
+   - 无需API调用
+   - 速度最快
+
+2. Standard模式  
+   - Fast + 外部验证
+   - 元数据一致性
+   - 需要网络连接
+
+3. Full模式
+   - Standard + 论断验证
+   - LLM辅助验证
+   - 需要OpenAI API
+
+================================
+Demo论文错误类型:
+
+E1: 虚构引用       [23] - 不存在的论文
+E2: 年份错误       [5]  - Toolformer 2024→2023
+E3: DOI错误        [7]  - DOI指向错误
+E4: 引用缺失       [12] - 正文有列表无
+E5: 未使用引用     [18] - 列表有正文无
+E6: 引用不支持     [23] - 过强论断
+E7: 数字不一致     摘要15% vs 表格8%
+E8: 过强论断       [5]  - "我们是第一个"
+
+================================
+依赖的外部服务:
+
+必需:
+- OpenAI API (Full模式的论断验证)
+
+可选但推荐:
+- Crossref API (学术元数据)
+- Semantic Scholar API (AI论文搜索)
+- OpenAlex API (开放学术图谱)
+- arXiv API (预印本)
+
+================================
+运行要求:
+
+- Python >= 3.10
+- 15MB 磁盘空间（代码+文档）
+- 网络连接（Standard/Full模式）
+- OpenAI API Key（Full模式）
+
+================================
+项目完成度: 100%
+
+所有P0必做功能已实现
+多项P1加分功能已实现
+文档完善，可直接运行
+Demo数据准备完整
